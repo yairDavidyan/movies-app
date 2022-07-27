@@ -48,7 +48,9 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "movies:build",
-        "hmr": true
+        "hmr": true,
+        "proxyConfig": "apps/movies/proxy.conf.json"
+
       },
       "configurations": {
         "development": {
