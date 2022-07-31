@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import { moviesType } from '../interfaces/movies';
-import { Box, Button, CardMedia, IconButton } from '@mui/material';
+import { Box, CardMedia, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
@@ -22,7 +22,6 @@ function MoviesTable({ movies }: { movies: moviesType[] }) {
       return {
         field: movie,
         headerName: '',
-        // minWidth: 50,
         sortable: false,
         disableColumnMenu: true,
         flex: 1,

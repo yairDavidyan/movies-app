@@ -44,16 +44,16 @@ export default function Header({
           </Button>
         </Toolbar>
       </AppBar>
-      <Grid container justifyContent="center" sx={{ padding: 4 }}>
+      {/* <Grid container justifyContent="center" sx={{ padding: 4 }}>
         <Typography
           variant="h1"
           component="div"
           sx={{ fontWeight: 'bold' }}
           color="#ed1566"
         >
-          Cinema City
+          Hall
         </Typography>
-      </Grid>
+      </Grid> */}
       <Login
         isLogin={isLogin}
         openDialog={openDialog}

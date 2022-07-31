@@ -4,7 +4,7 @@ import { Home } from './views/Home';
 import { useEffect, useState } from 'react';
 import { moviesType } from './interfaces/movies';
 import { CssBaseline } from '@mui/material';
-import MovieDetails from './components/MovieDetails';
+import TempleDetails from './components/TempleDetails';
 import Layout from './views/Layout';
 import MatrixHall from './components/MatrixHall';
 import MatrixAdmin from './components/MatrixAdmin';
@@ -32,7 +32,7 @@ export function App() {
             path="/"
             element={allMovies.length > 0 && <Home movies={allMovies} />}
           />
-          <Route path="details/:id" element={<MovieDetails />} />
+          <Route path="temple/:id" element={<TempleDetails />} />
           <Route path="hall" element={<MatrixHall />} />
           <Route path="hall-admin" element={<MatrixAdmin />} />
         </Routes>
