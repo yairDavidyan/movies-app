@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Button, Dialog, Grid, Stack, Typography } from '@mui/material';
 
@@ -17,6 +17,17 @@ export default function Login({
 }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const inputFocusRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (openDialog) {
+      setTimeout(() => {
+        inputFocusRef.current?.focus();
+      }, 100);
+    }
+  }, [openDialog]);
+
   function checkLogin() {
     fetch('/api/auth/login', {
       method: 'POST',
@@ -27,15 +38,13 @@ export default function Login({
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('data', data);
-
         if (data.id) {
           setIsLogin(true);
           setUserName(data.name);
+          setOpenDialog(false);
         } else if (data.statusCode === 401) {
-          console.log('no');
+          setErrorMessage(data.message);
         }
-        setOpenDialog(false);
       });
   }
 
@@ -54,6 +63,7 @@ export default function Login({
           <Typography variant="h6">Login</Typography>
         </Grid>
         <TextField
+          inputRef={inputFocusRef}
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -68,11 +78,10 @@ export default function Login({
         >
           Login
         </Button>
-        {isLogin && (
-          <Grid container justifyContent="center" padding={2}>
-            <Typography color="red">Error valid!</Typography>
-          </Grid>
-        )}
+
+        <Grid container justifyContent="center" padding={2}>
+          <Typography color="red">{errorMessage}</Typography>
+        </Grid>
       </Stack>
     </Dialog>
   );

@@ -10,10 +10,9 @@ import {
 import { UserService } from './user.service';
 import { userDto } from '../DTO/userDto.dto';
 
-@Controller('/user')
+@Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
   @Get()
   async getData() {
     return this.userService.getData();

@@ -18,6 +18,7 @@ export class UserService {
     return this.userRepository.findOne({ where: { id: +id } });
   }
   addUser(addUser: userDto) {
+    console.log('updateUser', addUser);
     this.userRepository.save(addUser);
   }
   findByEmail(email: string) {

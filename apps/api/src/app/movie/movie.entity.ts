@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class Movie {
@@ -25,4 +26,7 @@ export class Movie {
 
   @Column('text', { array: true })
   category: string[];
+
+  @ManyToOne(() => User, (user) => user.movies)
+  user: User;
 }

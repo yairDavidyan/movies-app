@@ -49,7 +49,7 @@ export default function Header({
           variant="h1"
           component="div"
           sx={{ fontWeight: 'bold' }}
-          color="#E22B77"
+          color="#ed1566"
         >
           Cinema City
         </Typography>

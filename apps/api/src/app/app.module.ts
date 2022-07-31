@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { MovieModule } from './movie/movie.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Movie } from './movie/movie.entity';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { User } from './user/user.entity';
+import { HallController } from './hall/hall.controller';
+import { HallModule } from './hall/hall.module';
 
 @Module({
   imports: [
@@ -19,11 +19,11 @@ import { User } from './user/user.entity';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      entities: [Movie, User],
       autoLoadEntities: true,
       synchronize: true,
     }),
+    HallModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, HallController],
 })
 export class AppModule {}
