@@ -8,8 +8,8 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { MovieService } from './movie.service';
 import { moviesDto } from '../DTO/movieDto.dto';
+import { MovieService } from './movie.service';
 
 @Controller('movie')
 export class MovieController {
@@ -24,9 +24,9 @@ export class MovieController {
     return this.movieService.getDataById(id);
   }
   @Post()
-  addMovie(@Body() newMovie: moviesDto) {
+  async addMovie(@Body() newMovie: moviesDto) {
     this.movieService.addMovies(newMovie);
-    return 'added success';
+    return 'success';
   }
   @Put(':id')
   updateMovie(@Body() updateMovie: moviesDto, @Param('id') id: string) {

@@ -10,23 +10,35 @@ export class Movie {
   name: string;
 
   @Column('text')
-  time: string;
+  city: string;
 
-  @Column('int')
-  rate: number;
+  @Column('text')
+  street: string;
+
+  @Column('text')
+  nosach: string;
 
   @Column('text')
   image: string;
 
   @Column('int')
-  price: number;
+  length_man: number;
 
-  @Column('text')
-  description: string;
+  @Column('int')
+  width_man: number;
+
+  @Column('int')
+  length_woman: number;
+
+  @Column('int')
+  width_woman: number;
 
   @Column('text', { array: true })
-  category: string[];
+  sketch_man: number[][];
 
-  @ManyToOne(() => User, (user) => user.movies)
-  user: User;
+  @Column('text', { array: true })
+  sketch_woman: number[][];
+
+  // @ManyToOne(() => User, (user) => user.movies)
+  // user: User;
 }

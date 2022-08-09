@@ -6,7 +6,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { Box } from '@mui/system';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { OptionsTemple } from '../interfaces/temple';
@@ -16,9 +15,10 @@ function TempleSelect() {
   const [temples, setTemples] = useState<OptionsTemple[]>([]);
   const [selectedTemple, setSelectedTemple] = useState<number>();
   const navigate = useNavigate();
-  console.log('selectedTemple', selectedTemple);
   function handleClick() {
-    navigate(`/temple/${selectedTemple}`);
+    if (selectedTemple) {
+      navigate(`/temple/${selectedTemple}`);
+    }
   }
 
   useEffect(() => {
@@ -32,30 +32,47 @@ function TempleSelect() {
   }, []);
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Stack sx={{ width: '100%' }}>
-        <Grid container justifyContent="center" sx={{ marginBottom: 4 }}>
-          <Typography variant="subtitle2" component="div">
-            Select Temple
-          </Typography>
-        </Grid>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={temples}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Temple" />}
-          onChange={(e, data) => setSelectedTemple(data ? data.id : 0)}
-        />
-        <Button
-          onClick={handleClick}
-          variant="contained"
-          sx={{ padding: 2, marginTop: 3 }}
-        >
-          Submit
-        </Button>
-      </Stack>
-    </Box>
+    <Grid
+      container
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: '70vh' }}
+    >
+      <Grid>
+        <Stack sx={{ width: '100%' }}>
+          <Grid container justifyContent="center" sx={{ marginBottom: 4 }}>
+            <Typography variant="subtitle2" component="div">
+              Select Temple
+            </Typography>
+          </Grid>
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={temples}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Temple" />}
+            onChange={(e, data) => setSelectedTemple(data ? data.id : 0)}
+          />
+          <Button
+            disabled={selectedTemple === 0 || selectedTemple === undefined}
+            onClick={handleClick}
+            variant="contained"
+            sx={{ padding: 2, marginTop: 3 }}
+          >
+            Submit
+          </Button>
+          {
+            <Button
+              onClick={() => navigate(`/temple-registration`)}
+              variant="contained"
+              sx={{ padding: 2, marginTop: 3 }}
+            >
+              Create Temple
+            </Button>
+          }
+        </Stack>
+      </Grid>
+    </Grid>
   );
 }
 

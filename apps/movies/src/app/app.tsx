@@ -8,6 +8,7 @@ import TempleDetails from './components/TempleDetails';
 import Layout from './views/Layout';
 import MatrixHall from './components/MatrixHall';
 import MatrixAdmin from './components/MatrixAdmin';
+import TempleRegistration from './components/TempleRegistration';
 
 const darkTheme = createTheme({
   palette: {
@@ -35,6 +36,7 @@ export function App() {
           <Route path="temple/:id" element={<TempleDetails />} />
           <Route path="hall" element={<MatrixHall />} />
           <Route path="hall-admin" element={<MatrixAdmin />} />
+          <Route path="temple-registration" element={<TempleRegistration />} />
         </Routes>
       </Layout>
     </ThemeProvider>

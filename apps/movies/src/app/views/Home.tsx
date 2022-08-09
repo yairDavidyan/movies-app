@@ -5,18 +5,7 @@ import { moviesType } from '../interfaces/movies';
 
 export function Home({ movies }: { movies: moviesType[] }) {
   // return <MoviesTable movies={movies} />;
-  return (
-    <Grid
-      container
-      alignItems="center"
-      justifyContent="center"
-      style={{ minHeight: '70vh' }}
-    >
-      <Grid item>
-        <TempleSelect />
-      </Grid>
-    </Grid>
-  );
+  return <TempleSelect />;
 }
 
 export default Home;

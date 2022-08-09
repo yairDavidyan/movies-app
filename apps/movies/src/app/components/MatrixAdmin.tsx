@@ -11,7 +11,7 @@ console.log(optionArr);
 const ITEM_HEIGHT = 48;
 
 function MatrixAdmin() {
-  const [cell, setCell] = useState<number[][]>(templeMock[0].sketch);
+  const [cell, setCell] = useState<number[][]>(templeMock[0].sketch_man);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [currentPlace, setCurrentPlace] = React.useState<Matrix>({
     col: 0,
