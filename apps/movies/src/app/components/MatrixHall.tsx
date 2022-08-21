@@ -1,45 +1,22 @@
-import { useState } from 'react';
-import AddIcon from '@mui/icons-material/Add';
-import { Button, Grid, IconButton, Typography } from '@mui/material';
-import RemoveIcon from '@mui/icons-material/Remove';
-import { GridAddIcon } from '@mui/x-data-grid';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
 import SendIcon from '@mui/icons-material/Send';
-import ClearIcon from '@mui/icons-material/Clear';
+import { Button, Grid } from '@mui/material';
+import { GridAddIcon } from '@mui/x-data-grid';
+import { useState } from 'react';
+import { Temple } from '../interfaces/temple';
 
-function MatrixHall() {
-  const [cell, setCell] = useState<number[][]>([
-    [0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 5],
-    [1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 5],
-    [1, 1, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 1, 5],
-    [1, 1, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 1, 5],
-    [1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1],
-    [1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1],
-    [1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 5, 5, 5, 0, 1, 1],
-    [0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0],
-    [0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0],
-    [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 5, 5, 5, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0],
-  ]);
+function MatrixHall({ templeDetails }: { templeDetails: Temple }) {
+  const [cell, setCell] = useState<number[][]>(templeDetails.sketch_man);
 
   function selectCell(i: number, j: number, isSelect: number) {
-    const copy = [...cell];
+    const copy = [...templeDetails.sketch_man];
     isSelect === 6 ? (copy[i][j] = 1) : (copy[i][j] = 6);
     setCell(copy);
   }
+  console.log('cell', cell);
+
   return (
     <>
-      <Grid container justifyContent="center">
-        <Grid item xs={10}>
-          <Typography variant="h4">Select seats</Typography>
-        </Grid>
-        <Grid item>
-          <Button endIcon={<SendIcon />}>continue to pay</Button>
-        </Grid>
-      </Grid>
       <Grid sx={{ py: 4 }}>
         {cell.map((row, i) => (
           <Grid container justifyContent="center" key={i}>
@@ -67,10 +44,14 @@ function MatrixHall() {
                 {col === 5 && <span>תפוס</span>}
                 {col === 6 && <CheckCircleIcon sx={{ color: '#ed1566' }} />}
               </Button>
-              // <span key={j}>{col}</span>
             ))}
           </Grid>
         ))}
+      </Grid>
+      <Grid container justifyContent="center">
+        <Grid item>
+          <Button endIcon={<SendIcon />}>continue to pay</Button>
+        </Grid>
       </Grid>
     </>
   );

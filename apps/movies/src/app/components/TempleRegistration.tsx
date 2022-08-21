@@ -34,18 +34,26 @@ function TempleRegistration() {
   }
 
   function fillTempleDetails(key: string, value: any) {
-    const matrixMan = Array(templeDetails?.length_man)
-      .fill(0)
-      .map(() => Array(templeDetails?.width_man).fill(0));
-    const matrixWoman = Array(templeDetails?.length_woman)
-      .fill(0)
-      .map(() => Array(templeDetails?.width_woman).fill(0));
     setTempleDetails({
       ...templeDetails,
       [key]: value,
-      sketch_man: matrixMan,
-      sketch_woman: matrixWoman,
     } as Temple);
+  }
+  function sizeCalculation(key: string, value: any) {
+    if (value >= 0) {
+      const matrixMan = Array(templeDetails?.length_man)
+        .fill(+0)
+        .map(() => Array(templeDetails?.width_man).fill(+0));
+      const matrixWoman = Array(templeDetails?.length_woman)
+        .fill(+0)
+        .map(() => Array(templeDetails?.width_woman).fill(+0));
+      setTempleDetails({
+        ...templeDetails,
+        [key]: value,
+        sketch_man: matrixMan,
+        sketch_woman: matrixWoman,
+      } as Temple);
+    }
   }
   function buttonDisabled() {
     return (
@@ -55,17 +63,17 @@ function TempleRegistration() {
           Object.keys(templeDetails).length !== 8))
     );
   }
+  console.log('temple', templeDetails);
   async function handleClick() {
-    const temple = await fetch('/api/movie', {
+    const res = await fetch('/api/movie', {
       method: 'POST',
       body: JSON.stringify(templeDetails),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
     });
-    console.log('temple', temple);
-
-    // navigate(`/hall-admin/${temple.id}`);
+    const templeID = await res.json();
+    navigate(`/hall-admin/${templeID}`);
   }
 
   return (
@@ -109,17 +117,19 @@ function TempleRegistration() {
                   label="length"
                   variant="outlined"
                   type="number"
+                  InputProps={{ inputProps: { min: 0 } }}
                   onChange={(e) =>
-                    fillTempleDetails('length_man', +e.target.value)
+                    sizeCalculation('length_man', +e.target.value)
                   }
                 />
                 <TextField
                   sx={{ paddingRight: 2 }}
                   label="width"
                   type="number"
+                  InputProps={{ inputProps: { min: 0 } }}
                   variant="outlined"
                   onChange={(e) =>
-                    fillTempleDetails('width_man', +e.target.value)
+                    sizeCalculation('width_man', +e.target.value)
                   }
                 />
               </Stack>
@@ -140,16 +150,18 @@ function TempleRegistration() {
                   label="length"
                   type="number"
                   variant="outlined"
+                  InputProps={{ inputProps: { min: 0 } }}
                   onChange={(e) =>
-                    fillTempleDetails('length_woman', +e.target.value)
+                    sizeCalculation('length_woman', +e.target.value)
                   }
                 />
                 <TextField
                   label="width"
                   type="number"
                   variant="outlined"
+                  InputProps={{ inputProps: { min: 0 } }}
                   onChange={(e) =>
-                    fillTempleDetails('width_woman', +e.target.value)
+                    sizeCalculation('width_woman', +e.target.value)
                   }
                 />
               </Stack>

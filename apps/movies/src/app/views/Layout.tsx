@@ -9,7 +9,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <TempleContext.Provider value={{ userId, setUserId }}>
       <Header isLogin={isLogin} setIsLogin={setIsLogin} />
-      <div>{children}</div>
+      {children}
     </TempleContext.Provider>
   );
 }

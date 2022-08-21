@@ -25,8 +25,9 @@ export class MovieController {
   }
   @Post()
   async addMovie(@Body() newMovie: moviesDto) {
-    this.movieService.addMovies(newMovie);
-    return 'success';
+    const res = await this.movieService.addMovies(newMovie);
+
+    return res.id;
   }
   @Put(':id')
   updateMovie(@Body() updateMovie: moviesDto, @Param('id') id: string) {

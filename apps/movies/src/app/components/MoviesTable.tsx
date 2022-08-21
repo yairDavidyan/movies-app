@@ -22,7 +22,6 @@ function MoviesTable({ movies }: { movies: moviesType[] }) {
       return {
         field: movie,
         headerName: '',
-        sortable: false,
         disableColumnMenu: true,
         flex: 1,
         renderCell: (movie: GridCellParams) => {
@@ -68,10 +67,8 @@ function MoviesTable({ movies }: { movies: moviesType[] }) {
         rows={movies}
         columns={columns}
         onRowClick={(data) => rowDetails(data.row)}
-        // hideFooterPagination
         hideFooter
         rowHeight={120}
-        // hideFooterSelectedRowCount
       />
     </Box>
   );

@@ -17,8 +17,9 @@ export class MovieService {
   getDataById(id: string) {
     return this.movieRepository.findOne({ where: { id: +id } });
   }
-  addMovies(addMovies: moviesDto) {
-    this.movieRepository.save(addMovies);
+  async addMovies(addMovies: moviesDto) {
+    const res = await this.movieRepository.save(addMovies);
+    return res;
   }
   updateMovies(id: string, updateMovie: moviesDto) {
     return this.movieRepository.update(+id, updateMovie);

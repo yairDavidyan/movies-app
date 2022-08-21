@@ -1,22 +1,29 @@
-import { Button, Grid, Menu, MenuItem } from '@mui/material';
+import { Button, Grid, Menu, MenuItem, Typography } from '@mui/material';
 import { GridAddIcon } from '@mui/x-data-grid';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import { Matrix, OptionsHallType } from '../interfaces/matrix';
-import { templeMock } from './templeMock';
 const options: OptionsHallType = { Box: 3, Door: 4, Hall: 2, Seat: 1 };
 const optionArr: (keyof OptionsHallType)[] = Object.keys(
   options
 ) as (keyof OptionsHallType)[];
-console.log(optionArr);
 const ITEM_HEIGHT = 48;
 
 function MatrixAdmin() {
-  const [cell, setCell] = useState<number[][]>(templeMock[0].sketch_man);
+  const { id } = useParams();
+  const [cell, setCell] = useState<number[][]>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [currentPlace, setCurrentPlace] = React.useState<Matrix>({
     col: 0,
     row: 0,
   });
+  useEffect(() => {
+    if (id) {
+      fetch(`api/movie/${id}`)
+        .then((res) => res.json())
+        .then((data) => setCell(data.sketch_man));
+    }
+  }, [id]);
 
   const open = Boolean(anchorEl);
 
@@ -34,11 +41,12 @@ function MatrixAdmin() {
   };
 
   function selectCell(option: keyof OptionsHallType) {
-    const copy = [...cell];
-
-    copy[currentPlace?.row][currentPlace?.col] = options[option];
-    setCell([...copy]);
-    setAnchorEl(null);
+    if (cell) {
+      const copy = [...cell];
+      copy[currentPlace?.row][currentPlace?.col] = options[option];
+      setCell([...copy]);
+      setAnchorEl(null);
+    }
   }
   const handleClose = () => {
     setAnchorEl(null);
@@ -71,7 +79,10 @@ function MatrixAdmin() {
           </MenuItem>
         ))}
       </Menu>
-      {cell.map((row, i) => (
+      <Grid container justifyContent="center" sx={{ mb: 3 }}>
+        <Typography variant="h2">Create Temple</Typography>
+      </Grid>
+      {cell?.map((row, i) => (
         <Grid container justifyContent="center" key={i}>
           {row.map((col, j) => (
             <div key={j}>
@@ -93,6 +104,15 @@ function MatrixAdmin() {
           ))}
         </Grid>
       ))}
+      <Grid container justifyContent="center">
+        <Button
+          // onClick={handleClick}
+          variant="contained"
+          sx={{ padding: 2, marginTop: 3 }}
+        >
+          Create
+        </Button>
+      </Grid>
     </div>
   );
 }

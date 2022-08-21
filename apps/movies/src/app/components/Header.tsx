@@ -15,12 +15,8 @@ export default function Header({
   isLogin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  // function nameUser(isLog: boolean) {
-  //   return isLog ? 'name' : 'Guest';
-  // }
   const [openDialog, setOpenDialog] = React.useState(false);
   const [userName, setUserName] = React.useState('guest');
-  // const userNameHeader = React.useMemo(() => nameUser(isLogin), [isLogin]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -43,16 +39,6 @@ export default function Header({
           </Button>
         </Toolbar>
       </AppBar>
-      {/* <Grid container justifyContent="center" sx={{ padding: 4 }}>
-        <Typography
-          variant="h1"
-          component="div"
-          sx={{ fontWeight: 'bold' }}
-          color="#ed1566"
-        >
-          Hall
-        </Typography>
-      </Grid> */}
       <Login
         isLogin={isLogin}
         openDialog={openDialog}

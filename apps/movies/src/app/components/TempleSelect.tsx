@@ -8,8 +8,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { OptionsTemple } from '../interfaces/temple';
-import { templeMock } from './templeMock';
+import { OptionsTemple, Temple } from '../interfaces/temple';
 
 function TempleSelect() {
   const [temples, setTemples] = useState<OptionsTemple[]>([]);
@@ -22,13 +21,17 @@ function TempleSelect() {
   }
 
   useEffect(() => {
-    const templesArr = templeMock.map((temple) => {
-      return {
-        id: temple.id,
-        label: temple.name,
-      };
-    });
-    setTemples(templesArr);
+    fetch('api/movie')
+      .then((res) => res.json())
+      .then((data) => {
+        const templesArr = data.map((temple: Temple) => {
+          return {
+            id: temple.id,
+            label: `${temple.name} , ${temple.city}`,
+          };
+        });
+        setTemples(templesArr);
+      });
   }, []);
 
   return (

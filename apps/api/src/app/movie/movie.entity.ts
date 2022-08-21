@@ -1,5 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { User } from '../user/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Movie {
@@ -33,10 +32,10 @@ export class Movie {
   @Column('int')
   width_woman: number;
 
-  @Column('text', { array: true })
+  @Column('int', { array: true })
   sketch_man: number[][];
 
-  @Column('text', { array: true })
+  @Column('int', { array: true })
   sketch_woman: number[][];
 
   // @ManyToOne(() => User, (user) => user.movies)
